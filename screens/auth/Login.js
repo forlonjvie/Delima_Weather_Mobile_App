@@ -1,4 +1,3 @@
-// screens/auth/Login.js
 import React, { useState } from "react";
 import {
   ScrollView,
@@ -17,20 +16,24 @@ import {
   themeColor,
 } from "react-native-rapi-ui";
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase'; // Import Firebase auth
+import { auth } from '../../firebase';
+
+// Import your show/hide password icon here (example using MaterialIcons)
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Login({ navigation }) {
-  const { isDarkmode, setTheme } = useTheme();
+  const { isDarkmode } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State to toggle show/hide password
 
   const handleLogin = async () => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setLoading(false);
-      navigation.navigate('Home'); // Navigating to the Home screen
+      navigation.navigate('Home');
     } catch (error) {
       setLoading(false);
       console.error("Error logging in:", error.message);
@@ -52,15 +55,16 @@ export default function Login({ navigation }) {
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
+              paddingVertical: 40,
             }}
           >
             <Image
               resizeMode="contain"
               style={{
-                height: 220,
-                width: 220,
+                height: 200,
+                width: 200,
               }}
-              source={require("../../assets/log-in.png")}
+              source={require("../../assets/weather-forecast.png")}
             />
           </View>
           <View
@@ -75,98 +79,74 @@ export default function Login({ navigation }) {
               fontWeight="bold"
               style={{
                 alignSelf: "center",
-                padding: 30,
+                paddingVertical: 20,
               }}
               size="h3"
             >
               Login
             </Text>
-            <Text>Email</Text>
             <TextInput
-              containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your email"
+              containerStyle={{ marginBottom: 15 }}
+              placeholder="Email"
               value={email}
-              autoCapitalize="none"
-              autoCompleteType="off"
-              autoCorrect={false}
-              keyboardType="email-address"
               onChangeText={(text) => setEmail(text)}
-            />
-
-            <Text style={{ marginTop: 15 }}>Password</Text>
-            <TextInput
-              containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your password"
-              value={password}
               autoCapitalize="none"
-              autoCompleteType="off"
+              autoCompleteType="email"
+              keyboardType="email-address"
               autoCorrect={false}
-              secureTextEntry={true}
-              onChangeText={(text) => setPassword(text)}
             />
-            <Button
-              text={loading ? "Loading" : "Continue"}
-              onPress={handleLogin}
-              style={{
-                marginTop: 20,
-              }}
-              disabled={loading}
-            />
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 15,
-                justifyContent: "center",
-              }}
-            >
-              <Text size="md">Don't have an account?</Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TextInput
+                containerStyle={{ flex: 1, marginBottom: 15 }}
+                placeholder="Password"
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                secureTextEntry={!showPassword} // Toggle secureTextEntry based on showPassword state
+                autoCapitalize="none"
+                autoCompleteType="password"
+                autoCorrect={false}
+              />
               <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
+                onPress={() => setShowPassword(!showPassword)} // Toggle show/hide password
+                style={{ padding: 10 }}
               >
-<Text
-  size="md"
-  fontWeight="bold"
-  style={{
-    marginLeft: 5,
-    color: 'blue', // Add this line to change the text color to blue
-  }}
->
-  Sign Up
-</Text>
-
+                <Icon
+                  name={showPassword ? "visibility-off" : "visibility"}
+                  size={24}
+                  color="black"
+                />
               </TouchableOpacity>
             </View>
-            <View
-  style={{
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-    justifyContent: "center",
-  }}
->
-  <TouchableOpacity
-    onPress={() => {
-      navigation.navigate("ForgetPassword");
-    }}
-  >
-    <Text size="md" fontWeight="bold" style={{ color: "red" }}>
-      Forget password
-    </Text>
-  </TouchableOpacity>
-</View>
-
+            <Button
+              text={loading ? "Loading" : "Login"}
+              onPress={handleLogin}
+              style={{ marginTop: 20 }}
+              disabled={loading}
+            />
+            <TouchableOpacity
+              style={{ alignItems: "center", marginTop: 20 }}
+              onPress={() => navigation.navigate("ForgetPassword")}
+            >
+              <Text style={{ color: "red", fontWeight: "bold" }}>
+                Forgot Password?
+              </Text>
+            </TouchableOpacity>
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                marginTop: 30,
                 justifyContent: "center",
+                marginTop: 20,
               }}
             >
+              <Text>Don't have an account? </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Register")}
+              >
+                <Text style={{ color: "blue", fontWeight: "bold" }}>
+                  Sign Up
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
