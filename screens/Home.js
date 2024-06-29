@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator, ImageBack
 import { parseString } from 'react-native-xml2js';
 import axios from 'axios';
 
-const UNSPLASH_ACCESS_KEY = '5eM4NUxArHBGDIK90XYwq7wf0w8joTS7zcKaMlHKs1E';  // Replace with your Unsplash access key
+const UNSPLASH_ACCESS_KEY = '5eM4NUxArHBGDIK90XYwq7wf0w8joTS7zcKaMlHKs1E';  
 
 const App = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -14,7 +14,7 @@ const App = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Function to fetch weather data
+  
   const fetchWeather = (location) => {
     setLoadingWeather(true);
     fetch(`http://api.weatherapi.com/v1/forecast.xml?key=9015745e3e774dcf96a214401242406&q=${location}&days=3`)
@@ -38,7 +38,7 @@ const App = () => {
       });
   };
 
-  // Function to fetch background image from Unsplash
+  
   const fetchImage = (location) => {
     axios.get(`https://api.unsplash.com/search/photos`, {
       params: { query: location, per_page: 1 },
@@ -59,7 +59,7 @@ const App = () => {
     });
   };
 
-  // Effect to fetch weather and image on initial render and when query changes
+  
   useEffect(() => {
     fetchWeather(query);
     fetchImage(query);
@@ -70,7 +70,7 @@ const App = () => {
     setQuery(search);
   };
 
-  // Effect to update time every second
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTime(new Date());
@@ -79,7 +79,7 @@ const App = () => {
     return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
 
-  // Helper function to format time and date
+
   const formatTime = (date) => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   };
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    minHeight: '100%',  // Ensure the container takes full height
+    minHeight: '100%', 
   },
   header: {
     width: '100%',
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 8,
     marginRight: 10,
-    color: '#ffffff',  // White text
+    color: '#ffffff', 
   },
   backgroundImage: {
     flex: 1,
@@ -203,43 +203,42 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent black overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   forecastScroll: {
-    marginTop: 10,  // Adjusted from 20 to 10 for less spacing
-    marginBottom: 10,  // Adjusted from 20 to 10 for less spacing
-    paddingHorizontal: 10,  // Added horizontal padding for better spacing
+    marginTop: 10,  
+    marginBottom: 10, 
+    paddingHorizontal: 10,  
   },
   forecastDay: {
-    width: 300,  // Adjust width as needed
-    height: 250,  // Adjust height to accommodate the icon
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',  // Semi-transparent darker background
+    width: 300,  
+    height: 250,  
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', 
     borderRadius: 10,
     padding: 10,
-    marginHorizontal: 5,  // Adjusted from 10 to 5 for less spacing between days
-    marginBottom: 10,  // Added marginBottom for spacing between forecast days
+    marginHorizontal: 5,  
+    marginBottom: 10,  
     justifyContent: 'center',
     alignItems: 'center',
   },
   date: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#ffffff',  // White text
+    color: '#ffffff',  
     textAlign: 'center',
     marginBottom: 5,
   },
   dayOfWeekContainer: {
-    backgroundColor: '#ffffff',  // White background for contrast
-    padding: 5,
+    backgroundColor: '#ffffff',  
     borderRadius: 5,
     marginBottom: 10,
   },
   dayOfWeek: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#000000',  // Black text for contrast
+    color: '#000000',  
     textAlign: 'center',
   },
   weatherIcon: {
@@ -249,13 +248,13 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 14,
-    color: '#ffffff',  // White text
+    color: '#ffffff', 
     textAlign: 'center',
     
   },
   errorText: {
     fontSize: 18,
-    color: '#ffffff',  // White text
+    color: '#ffffff',  
     textAlign: 'center',
   },
 });

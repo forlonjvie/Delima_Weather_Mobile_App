@@ -1,9 +1,7 @@
-// firebase.js
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA58eYFde53BL8XbXf2T8sx1S3PkksCbUk",
   authDomain: "delimaform.firebaseapp.com",
@@ -14,7 +12,7 @@ const firebaseConfig = {
   measurementId: "G-TCF0ES5ZKC"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);

@@ -1,4 +1,3 @@
-// screens/auth/Register.js
 import React, { useState } from "react";
 import {
   ScrollView,

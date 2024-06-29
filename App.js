@@ -27,8 +27,8 @@ export default function App() {
   const videoRef = useRef(null);
 
   const handleTap = () => {
-    // Navigate to the login screen or any other screen on tap
-    navigation.navigate('Login'); // Example navigation to Login screen
+    
+    navigation.navigate('Login'); 
   };
 
   return (
@@ -44,7 +44,7 @@ export default function App() {
   );
 }
 
-// Custom component for the screen with background video
+
 function BackgroundVideoScreen({ navigation }) {
   const videoRef = useRef(null);
 
@@ -78,14 +78,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent black overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',  
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#ffffff',  // White text
+    color: '#ffffff',  
     textAlign: 'center',
   },
 });
